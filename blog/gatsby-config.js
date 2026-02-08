@@ -19,8 +19,16 @@ module.exports = {
       address: 'PO Box 123'
     }
   },
-  plugins: [
-    `gatsby-plugin-image`,
+
+    plugins: [
+      {
+        resolve: 'gatsby-source-contentful',
+        options: {
+          spaceId: 'cm29c0arx6fu',
+          accessToken: 'E1l8X-iTWxK2KRD1k_QyU_p6i5EfajMY4kKT29kDZdc'
+        }
+      },
+      'gatsby-plugin-image',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
