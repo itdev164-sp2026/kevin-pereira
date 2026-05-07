@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { SidebarInset } from "@/components/ui/sidebar";
 
 interface Project {
@@ -43,6 +45,12 @@ export default async function ProjectsPage() {
   return (
     <SidebarInset>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold">Projects</h1>
+          <Link href="/projects/new">
+            <Button>New Project</Button>
+          </Link>
+        </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projects.length === 0 ? (
             <div className="rounded-lg border bg-card p-6 col-span-full">
