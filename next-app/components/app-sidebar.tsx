@@ -1,7 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { Home, FolderOpen, Settings } from "lucide-react"
+import { Home, FolderOpen, Settings, LogOut } from "lucide-react"
+import type { User } from "@supabase/supabase-js"
 
 import {
   Sidebar,
@@ -14,6 +15,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button"
+import { signOut } from "@/app/(auth)/actions"
 
 const navItems = [
   {
@@ -33,7 +36,11 @@ const navItems = [
   },
 ]
 
-export function AppSidebar() {
+interface AppSidebarProps {
+  user: User | null
+}
+
+export function AppSidebar({ user }: AppSidebarProps) {
   return (
     <Sidebar>
       <SidebarHeader>
@@ -67,10 +74,19 @@ export function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter>
-        <div className="flex items-center gap-2 px-2 py-2 text-xs text-muted-foreground">
-          <div className="h-2 w-2 rounded-full bg-green-500" />
-          <span>Online</span>
-        </div>
+        {user ? (
+          <form action={signOut} className="px-2 py-2">
+            <Button type="submit" variant="ghost" className="w-full justify-start gap-2">
+              <LogOut className="h-4 w-4" />
+              <span>Sign Out</span>
+            </Button>
+          </form>
+        ) : (
+          <div className="flex items-center gap-2 px-2 py-2 text-xs text-muted-foreground">
+            <div className="h-2 w-2 rounded-full bg-green-500" />
+            <span>Online</span>
+          </div>
+        )}
       </SidebarFooter>
     </Sidebar>
   )
