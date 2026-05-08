@@ -1,6 +1,6 @@
 "use server"
 
-import { supabase } from "@/lib/supabase"
+import { createClient } from "@/lib/supabase/server"
 import { projectSchema, type Project } from "@/lib/schemas"
 import { ZodError } from "zod"
 
@@ -12,6 +12,7 @@ export async function createProject(
     const validatedData = projectSchema.parse(data)
 
     // Insert into Supabase
+    const supabase = await createClient()
     const { error } = await supabase
       .from("projects")
       .insert([validatedData])
