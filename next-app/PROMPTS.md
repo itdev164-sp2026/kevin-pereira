@@ -84,3 +84,33 @@
 ### Reflection
 
 > Using the Schema-First approach with Zod makes forms easier to manage because all the validation rules are written in one place. It helps prevent junk data from entering the database because invalid inputs are blocked before the data gets inserted into Supabase. In previous courses, I mostly used simple if-statements or basic HTML validation, but Zod feels more organized because the same validation works on both the client and server side.
+
+
+
+
+
+## Activity 5: Securing the App with Supabase Auth
+
+### Prompt 1
+
+**What I asked:**
+
+> Add Supabase Auth to my Next.js app. Create a login page, server actions for sign in and sign out, middleware to protect dashboard routes, and update the projects page so users only see their own projects. Use my existing Supabase setup and existing dashboard layout.
+
+**What happened:**
+
+> The Agent created and changed several files for authentication. It worked on the login page, auth actions, middleware, sidebar sign out, and Supabase server files. It did not work perfectly the first time, because some files were placed in the wrong folder and I had to fix missing imports.
+
+### Prompt 2
+
+**What I asked:**
+
+> Fix the incorrect auth folder structure. There is an extra folder named ")" inside `src/app/(auth)/` causing imports to fail. Move all auth files into the correct folder structure: `src/app/(auth)/actions.ts` and `src/app/(auth)/login/page.tsx`. Then remove the extra ")" folder and fix any broken imports related to `@/app/(auth)/actions`.
+
+**What happened:**
+
+> The Agent fixed the folder structure so the sign out import could be found. I learned that file paths matter a lot in Next.js, especially with route groups like `(auth)`.
+
+### Reflection
+
+> The Agent handled `middleware.ts` by creating middleware that checks the user session before allowing access to protected pages. I did have to add files to the Working Set so the Agent had enough context, like the layout, sidebar, projects page, actions file, and Supabase files. I was surprised that adding authentication changed so many files because it affected login, logout, middleware, Supabase clients, the sidebar, and the project data. Middleware-based auth seems better than checking login status inside every page because it protects routes in one central place instead of repeating the same login check everywhere.
