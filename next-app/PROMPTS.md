@@ -114,3 +114,36 @@
 ### Reflection
 
 > The Agent handled `middleware.ts` by creating middleware that checks the user session before allowing access to protected pages. I did have to add files to the Working Set so the Agent had enough context, like the layout, sidebar, projects page, actions file, and Supabase files. I was surprised that adding authentication changed so many files because it affected login, logout, middleware, Supabase clients, the sidebar, and the project data. Middleware-based auth seems better than checking login status inside every page because it protects routes in one central place instead of repeating the same login check everywhere.
+
+
+
+
+## Activity 6: Deployment, Webhooks, & AI-Testing
+
+### Prompt 1
+
+**What I asked:**
+
+> Create Playwright tests for my Next.js app. Test the login page, authenticated user flow, and sidebar navigation links. Use role-based locators and make the tests work with the current Supabase auth setup.
+
+**What happened:**
+
+> The Agent created Playwright tests using role-based locators like `getByRole()`. It understood the login flow from the workspace context and created tests for the login page, successful authentication, and sidebar navigation. The tests did not fully pass on the first run because one locator matched multiple elements on the page.
+
+### Prompt 2
+
+**What I asked:**
+
+> Fix the failing Playwright test for the Overview sidebar link. The test is matching both the sidebar and breadcrumb links. Update the locator so only the sidebar navigation item is tested.
+
+**What happened:**
+
+> The fix required a couple rounds of testing. The Agent updated the locator to target the sidebar specifically using `locator("ul").getByRole()`. After rerunning the tests, all 3 tests passed successfully. I also had to troubleshoot issues with Playwright, Tailwind resolution, Supabase environment variables, and Vercel deployment settings during the process.
+
+### Reflection
+
+> Having AI write and run tests makes me feel more confident before deploying because it automatically checks parts of the app that I might forget to test myself. The Agent caught an issue with duplicate “Overview” links that I probably would not have noticed during normal browser testing. Compared to manually clicking around in the browser, automated tests feel faster and more reliable because I can rerun them anytime after making changes.
+
+### Course Reflection
+
+> My prompting strategy improved a lot from Activity 1 to Activity 6. At the beginning I gave short prompts and usually had to fix things manually after. Now I give more detailed prompts with exact file names, project structure, and expected behavior. I also learned to explain errors back to the Agent so it could help troubleshoot problems faster. The most important thing I learned about AI coding tools is that the quality of the output depends heavily on the quality of the prompt and context you provide.
